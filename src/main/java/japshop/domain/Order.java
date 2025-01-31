@@ -1,16 +1,24 @@
 package japshop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
 
-    @Id @GeneratedValue
-    @Column(name="ORDER_ID")
+    @Id
+    @GeneratedValue
+    @Column(name = "ORDER_ID")
     private Long id;
-    private Long member_id;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     private LocalDateTime orderDate;
     private OrderStatus orderStatus;
 
@@ -22,12 +30,12 @@ public class Order {
         this.id = id;
     }
 
-    public Long getMember_id() {
-        return member_id;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMember_id(Long member_id) {
-        this.member_id = member_id;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
     public LocalDateTime getOrderDate() {
@@ -44,5 +52,18 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public void addOderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 }
