@@ -2,13 +2,14 @@ package japshop.domain;
 
 import javax.persistence.*;
 
+@Entity
 public class OrderItem {
     @Id @GeneratedValue
     @Column(name="ORDER_ITEM_ID")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
-    private Order order;
+    private Orders order;
     @ManyToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;
@@ -23,11 +24,11 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Order getOrder() {
+    public Orders getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Orders order) {
         this.order = order;
     }
 

@@ -1,12 +1,10 @@
 package japshop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Member {
     @Id @GeneratedValue
     @Column(name="MEMBER_ID")
@@ -17,7 +15,7 @@ public class Member {
     private String zipcode;
     //그래도 설계는 단방향으로 끊어라
     @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    private List<Orders> orders = new ArrayList<>();
     public long getId() {
         return id;
     }
